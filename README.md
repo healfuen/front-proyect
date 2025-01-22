@@ -1,50 +1,120 @@
-# React + TypeScript + Vite
+# Proyecto de Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción
 
-Currently, two official plugins are available:
+Este es un proyecto frontend desarrollado con React y TypeScript, diseñado para interactuar con el backend del sistema académico. El sistema permite la gestión de estudiantes, cursos, inscripciones y autenticación de usuarios.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologías Utilizadas
 
-## Expanding the ESLint configuration
+- **Framework:** React 18
+- **Lenguaje:** TypeScript
+- **Diseño:** Tailwind CSS
+- **Autenticación:** JWT (JSON Web Tokens)
+- **Gestor de Dependencias:** npm
+- **Herramienta de Construcción:** Vite
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Requisitos Previos
 
-- Configure the top-level `parserOptions` property like this:
+- Node.js >= 16
+- npm >= 7
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Instalación
+
+1. Clona este repositorio:
+   ```bash
+   git clone https://github.com/healfuen/front-proyect.git
+   ```
+2. Navega al directorio del proyecto:
+   ```bash
+   cd front-proyect
+   ```
+3. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+4. Configura las variables de entorno:
+   - Crea un archivo `.env` en la raíz del proyecto.
+   - Agrega la URL base del backend:
+     ```env
+     VITE_API_URL=http://127.0.0.1:8000/api
+     ```
+
+## Scripts Disponibles
+
+- **Iniciar el servidor de desarrollo:**
+  ```bash
+  npm run dev
+  ```
+- **Construir el proyecto para producción:**
+  ```bash
+  npm run build
+  ```
+- **Previsualizar la versión de producción:**
+  ```bash
+  npm run preview
+  ```
+
+## Estructura del Proyecto
+
+```
+.
+├── public
+├── src
+│   ├── api
+│   │   └── axios.ts   # Configuración de Axios para las peticiones HTTP
+│   ├── components
+│   │   ├── Layout.tsx # Componente principal con el menú lateral
+│   │   ├── Login.tsx  # Vista de inicio de sesión
+│   │   └── Sidebar.tsx
+│   ├── context
+│   │   └── AuthContext.tsx # Manejo de autenticación con Context API
+│   ├── pages
+│   │   ├── Home.tsx
+│   │   ├── Estudiantes.tsx
+│   │   ├── Cursos.tsx
+│   │   ├── CursosDisponibles.tsx
+│   │   ├── CursosInscritos.tsx
+│   │   └── FormularioCurso.tsx
+│   ├── App.tsx       # Archivo principal de la aplicación
+│   ├── main.tsx      # Punto de entrada
+│   └── index.css     # Estilos globales
+├── vite.config.ts     # Configuración de Vite
+├── package.json
+└── tsconfig.json
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Funcionalidades Principales
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- **Autenticación:**
+  - Inicio y cierre de sesión.
+  - Registro de nuevos usuarios.
+  - Protección de rutas mediante Context API y JWT.
+- **Gestín de Estudiantes:**
+  - Crear, editar, eliminar y listar estudiantes.
+  - Generar reportes de cursos inscritos por estudiante.
+- **Gestín de Cursos:**
+  - Crear, editar, eliminar y listar cursos.
+  - Inscribir estudiantes en cursos.
+  - Validación de horarios y cupos disponibles.
+- **Reportes:**
+  - Previsualizar y descargar reportes en PDF.
+  - Exportar información a Excel.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+## Variables de Entorno
+
+Asegúrate de configurar las siguientes variables de entorno en tu archivo `.env`:
+
+```env
+VITE_API_URL=http://127.0.0.1:8000/api
 ```
+
+## Integración con el Backend
+
+- La URL base para las peticiones al backend está configurada en `VITE_API_URL`.
+- Utiliza Axios para manejar las peticiones HTTP.
+- JWT se almacena en el `localStorage` del navegador y se envía en los encabezados de las peticiones protegidas.
+
+---
+
+**Autor:** Hector Fuentes Montenegro
+
