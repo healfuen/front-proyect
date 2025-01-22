@@ -1,18 +1,33 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Sidebar: React.FC = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+  const [error, setError] = React.useState<string | null>(null);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (err) {
+      console.error("Error al cerrar sesión:", err);
+      setError("Hubo un problema al cerrar sesión. Intenta nuevamente.");
+    }
+  };
+
   const menuItems = [
     { name: "Inicio", path: "/" },
     { name: "Períodos Académicos", path: "/periodos-academicos" },
     { name: "Cursos", path: "/cursos" },
-    { name: "Contacto", path: "/contact" },
+    { name: "Estudiantes", path: "/estudiantes" },
   ];
 
   return (
-    <aside className="w-64 h-screen bg-gray-800 text-white flex flex-col">
+    <aside className="bg-gray-800 text-white h-screen w-64 flex flex-col fixed md:relative">
       <h1 className="text-2xl font-bold text-center p-6 border-b border-gray-600">
-        Mi Aplicación
+        Sistema de Inscripción
       </h1>
 
       <nav className="flex-1">
@@ -36,9 +51,19 @@ const Sidebar: React.FC = () => {
         </ul>
       </nav>
 
-      <div className="p-4 border-t border-gray-600">
+      <div className="p-4">
+        <button
+          onClick={handleLogout}
+          className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
+        >
+          Cerrar Sesión
+        </button>
+        {error && <p className="text-center text-red-500 text-sm mt-2">{error}</p>}
+      </div>
+
+      <div className="mt-auto p-4 border-t border-gray-600">
         <p className="text-sm text-gray-400 text-center">
-          &copy; 2025 Mi Aplicación
+          &copy; 2025 Hector Fuentes
         </p>
       </div>
     </aside>
